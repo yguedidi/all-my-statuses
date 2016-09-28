@@ -1,0 +1,405 @@
+@CHARSET "UTF-8";
+
+/* * {
+	
+}*/
+
+.clearfix {
+	clear: both;
+}
+
+body {
+	width: 760px;
+	background: none repeat scroll 0 0 #FFFFFF;
+	color: #333333;
+	direction: ltr;
+	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+	font-size: 11px;
+	margin: 10px auto;
+	padding: 0;
+	text-align: left;
+	unicode-bidi: embed;
+}
+
+a {
+	color: #627AAD;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+a:active {
+	outline: none;
+}
+
+#adk-1483 {
+	width: 728px;
+	height: 90px;
+	margin: 0 auto 40px;
+}
+
+#adk-1484 {
+	width: 728px;
+	height: 90px;
+	margin: 20px auto 10px;
+}
+
+#ad-top {
+    display: block;
+    width: 468px;
+    height: 60px;
+    margin: 0 auto 40px;
+}
+
+#ad-bottom {
+    display: block;
+    width: 468px;
+    height: 60px;
+    margin: 40px auto 0;
+}
+
+h2 {
+	width: 600px;
+	height: 20px;
+	margin: 20px auto 20px;
+	text-indent: 27px;
+	font-size: 16px;
+	line-height: 20px;
+	background: url("logo16.gif") no-repeat left center #FFFFFF;
+}
+
+h2 span {
+	font-size: 9px;
+	color: #bbbbbb;
+}
+
+#btnLikeTop {
+	height: 20px;
+	float: right;
+	text-indent: 0;
+}
+
+#btnLikeBottom {
+	width: 550px;
+	height: 80px;
+	margin: 10px auto;
+}
+
+#body {
+	position: relative;
+	clear: both;
+	width: 550px;
+	min-height: 100px;
+	margin: 20px auto;
+}
+
+#body #inviteBox {
+	margin: 5px 0 20px;
+	padding: 10px;
+	background: url("info16.gif") no-repeat 10px center #f7f7f7;
+	text-indent: 20px;
+}
+
+#body #inviteBox a.closeInvite {
+	float: right;
+}
+
+#body ul {
+	margin: 30px 0 0 0;
+	padding: 0;
+	border: 0;
+	list-style-type: none;
+}
+
+#body ul li {
+	clear: both;
+	margin: 0 0 15px 0;
+	padding: 0;
+	background: url("doubleQuotesOpen.gif") no-repeat top left transparent;
+}
+
+#body ul li.error {
+	margin: 5px 0;
+	padding: 10px;
+	background: url("error16.gif") no-repeat 10px center #ffebe8;
+	text-indent: 20px;
+}
+
+#body ul li.error a {
+	float: right;
+}
+
+#body ul li.error span {
+	line-height: 15px;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+#body ul li div.status {
+	float: left;
+	margin: 0 0 5px 0;
+	line-height: 20px;
+	font-size: 14px;
+	padding: 0 20px 0;
+	background: url("doubleQuotesClose.gif") no-repeat right top transparent;
+}
+
+#body ul li div.date {
+	width: 550px;
+	max-width: none;
+	float: none;
+	height: 20px;
+	line-height: 13px;
+	clear: both;
+	text-indent: 30px;
+	color: #cccccc;
+}
+
+#body ul li div.date a.btn {
+	display: none;
+	float: right;
+	margin: 0 0 0 5px;
+	padding: 0 5px;
+	height: 20px;
+	line-height: 20px;
+	background: #EDEFF4;
+	text-align: center;
+	text-indent: 0;
+	font-size: 11px;
+}
+
+#body ul li div.date a.btn.hide {
+	display: none;
+}
+
+#body ul li:hover div.date a.btn {
+	display: block;
+}
+
+#body ul li:hover div.date a.btn.hide {
+	display: none;
+}
+
+#body ul li div.date a.btn:hover {
+	background: #D8DFEA;
+	text-decoration: none;
+}
+
+#body ul li div.date a.btn.infos {
+	background: #EDEFF4;
+	text-align: left;
+}
+
+#body ul li div.date a.btn.infos:hover {
+	background: #ECEFF5;
+	text-decoration: none;
+}
+
+#body ul li div.date a.btn.infos span {
+	display: block;
+	float: left;
+	height: 16px;
+	margin: 2px 0 2px 2px;
+	line-height: 16px;
+	text-indent: 20px;
+	color: #3B5998;
+}
+
+#body ul li div.date a.btn.infos span.comments {
+	background: url("comments.gif") no-repeat left center transparent;
+}
+
+#body ul li div.date a.btn.infos span.likes {
+	background: url("likes.gif") no-repeat left center transparent;
+}
+
+#body ul li div.date a:hover.btn.infos {
+	background: #D8DFEA;
+	text-decoration: none;
+}
+
+#body ul li div.date a.btn.loading {
+	display: block;
+	background: url("loading.gif") no-repeat center center #D8DFEA;
+}
+
+#body ul li div.date a.btn.loading span {
+	visibility: hidden;
+}
+
+#body ul li div.date a.btn.loading:hover {
+	background: url("loading.gif") no-repeat center center #D8DFEA;
+	text-decoration: none;
+}
+
+#body div#boxFooter {
+	clear: both;
+	width: 548px;
+	margin: 30px auto 20px;
+	padding: 0;
+	font-size: 11px;
+}
+
+div#body div#boxFooter:hover {
+	/*background: #EDEFF4;*/
+}
+
+#body div#boxFooter a#btnMore {
+	display: block;
+	padding: 10px 15px;
+	text-indent: 10px;
+	border: 1px solid #D8DFEA;
+	background: url("more.gif") no-repeat 15px center #EDEFF4;
+	color: #3B5998;
+}
+
+#body div#boxFooter span#lbLoading {
+	display: none;
+	padding: 10px 15px;
+	text-indent: 25px;
+	border: 1px solid #D8DFEA;
+	background: url("loading.gif") no-repeat 15px center #EDEFF4;
+}
+
+#body div#boxFooter span#lbNoMore {
+	display: none;
+	padding: 10px 15px;
+	text-indent: 0px;
+	border: 1px solid #D8DFEA;
+	background: #EDEFF4;
+}
+
+#body div#boxFooter span.nbStatuses {
+	float: right;
+	margin: 10px 15px;
+}
+
+#body div#boxFooter.loading a#btnMore {
+	display: none;
+}
+
+#body div#boxFooter.loading span#lbLoading {
+	display: block;
+}
+
+#body div#boxFooter.noMore a#btnMore {
+	display: none;
+}
+
+#body div#boxFooter.noMore span#lbLoading {
+	display: none;
+}
+
+#body div#boxFooter.noMore span#lbNoMore {
+	display: block;
+}
+
+#body div#boxFooter a#btnMore:hover {
+	/*background: #EDEFF4;*/
+}
+
+#copyright {
+	width: 600px;
+	margin: 0 auto;
+	clear: both;
+	color: #999999;
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+/*
+.feed {
+	width: 458px;
+}
+
+.feed .feedProfile {
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+.feed .feedProfile img {
+	display: block;
+	width: 50px;
+	height: 50px;
+	border: 0;
+}
+
+.feed .feedContent {
+	display: table-cell;
+	width: 398px;
+	vertical-align: top;
+	color: #000000;
+	font-size: 11px;
+}
+
+.feed .feedContent .feedActors {
+	margin: 0 0 3px 0;
+	font-weight: bold;
+}
+
+.feed .feedContent .feedActors .feedActor {
+	color: #3B5998;
+}
+
+.feed .feedContent .feedActors img {
+	margin: 0 5px 0 5px;
+}
+
+.feed .feedContent .feedActors .feedTarget  {
+	
+
+}
+
+.feed .feedContent .feedActors .feedActor a,
+.feed .feedContent .feedActors .feedTarget a  {
+	color: #3B5998;
+}
+
+.feed .feedContent .feedMessage {
+	line-height: 14px;
+}
+
+.feed .feedContent .attachment {
+	margin: 10px 0 10px 0;
+}
+
+.feed .feedContent .attachment .attachmentImage {
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+.feed .feedContent .attachment .attachmentImage img {
+	display: block;
+	max-width: 90px;
+	max-height: 90px;
+	border: 0;
+}
+
+.feed .feedContent .attachment .attachmentContent {
+	display: table-cell;
+	vertical-align: top;
+	color: #808080;
+}
+
+.feed .feedContent .attachment .attachmentContent .attachmentTitle {
+	
+}
+
+.feed .feedContent .attachment .attachmentContent .attachmentTitle a {
+	color: #3B5998;
+	font-weight: bold;
+}
+
+.feed .feedContent .attachment .attachmentContent .attachmentDesc {
+	margin: 5px 0 0 0;
+}
+*/
