@@ -8,5 +8,7 @@
             "email": "yassine@guedidi.com"
         }
     ],
-    "require": {}
+    "require": {
+        "symfony/dotenv": "^3.3"
+    }
 }
