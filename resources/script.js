@@ -19,8 +19,8 @@ AllMyStatuses.getStatusText = function(status) {
 };
 
 AllMyStatuses.FB.getNbStatuses = function() {
-	FB.api('/me/statuses',
-			{fields: 'id', limit: 500}, 
+	FB.api('/me/feed',
+			{fields: 'id', limit: 500},
 			function(response) {
 				if(response && response.data) {
 					$('#nbStatusesTotal').text('/ '+response.data.length);
@@ -100,18 +100,25 @@ AllMyStatuses.FB.sendReuseRequests = function(friends, successCallback, cancelCa
 
 AllMyStatuses.FB.getStatuses = function(callback) {
 	FB.api(
-		'/me/statuses',
-		{'limit':AllMyStatuses.FB.Params.limit+1, 'offset':AllMyStatuses.FB.Params.offset},
+		'/me/feed',
+		{fields: 'id,message,type,updated_time', limit:AllMyStatuses.FB.Params.limit+1, offset:AllMyStatuses.FB.Params.offset},
 		function(response) {
-			if(AllMyStatuses.FB.Params.offset == 0) {
-				AllMyStatuses.currentStatus = response.data[0].message;
-			}
-			
-			var fetchedStatuses = (response.data.length > AllMyStatuses.FB.Params.limit ? AllMyStatuses.FB.Params.limit : response.data.length);
-			for(var i = 0; i < fetchedStatuses; i++) {
-                if(typeof response.data[i].message == "undefined") {
-                    continue;
-                }
+			var fetchedStatuses = 0;
+			var fetchedFeedItems = (response.data.length > AllMyStatuses.FB.Params.limit ? AllMyStatuses.FB.Params.limit : response.data.length);
+			for(var i = 0; i < fetchedFeedItems; i++) {
+				if(typeof response.data[i].message == "undefined") {
+					continue;
+				}
+
+				if(response.data[i].type != "status") {
+					continue;
+				}
+
+				if(AllMyStatuses.currentStatus == null) {
+					AllMyStatuses.currentStatus = response.data[i].message;
+				}
+
+				fetchedStatuses++;
 
 				$('#listStatuses').append(AllMyStatuses.getStatusElt(response.data[i], response.data[i].message != AllMyStatuses.currentStatus && !AllMyStatuses.limitReached));
 				//allStatuses.push(response.data[i]);
@@ -119,7 +126,7 @@ AllMyStatuses.FB.getStatuses = function(callback) {
 
 			AllMyStatuses.FB.Params.offset += AllMyStatuses.FB.Params.limit;
 			$('#nbStatuses').text(parseInt($('#nbStatuses').text())+fetchedStatuses);
-			
+
 			callback(response.data.length > AllMyStatuses.FB.Params.limit);
 		}
 	);
@@ -220,47 +227,49 @@ window.fbAsyncInit = function() {
 	//FB.Canvas.EarlyFlush.addResource(AllMyStatuses.Urls.home+'script.js');
 
 	FB.getLoginStatus(function(response) {
-		if (response.authResponse) {
-			//fbUserID = response.authResponse.userID;
-			
-			AllMyStatuses.FB.clearRequests(
-				AllMyStatuses.main
-			);
-			
-			FB.Event.subscribe('edge.create',
-				function(response) {
-                    _gaq.push(['_trackSocial', 'Facebook', 'Like', AllMyStatuses.Urls.canvas]);
-			    	$.ajax({
-						type: 'POST',
-			    		url: AllMyStatuses.Urls.ajax,
-			    		data: {p: 0, uid: AllMyStatuses.FB.UserID}
-			    	});
-				}
-			);
+        FB.login(function(){
+			if (response.authResponse) {
+				//fbUserID = response.authResponse.userID;
 
-			FB.Event.subscribe('edge.remove',
-				function(response) {
-                    _gaq.push(['_trackSocial', 'Facebook', 'Unlike', AllMyStatuses.Urls.canvas]);
-					$.ajax({
-						type: 'POST',
-			    		url: AllMyStatuses.Urls.ajax,
-			    		data: {p: 1, uid: AllMyStatuses.FB.UserID}
-			    	});
-				}
-			);
+				AllMyStatuses.FB.clearRequests(
+					AllMyStatuses.main
+				);
 
-		} else {
-			/*FB.login(function(response) {
-				if (response.authResponse) {
-					//top.location.href = fbCanvasURL;
-					//fbUserID = response.authResponse.userID;
-					//$('#btnMore').click();
-					FB.Canvas.setAutoGrow();
-				} else {
-					//top.location.href = "http://www.facebook.com/";
-				}
-			}, {scope: fbPerms});*/
-		}
+				FB.Event.subscribe('edge.create',
+					function(response) {
+						_gaq.push(['_trackSocial', 'Facebook', 'Like', AllMyStatuses.Urls.canvas]);
+						$.ajax({
+							type: 'POST',
+							url: AllMyStatuses.Urls.ajax,
+							data: {p: 0, uid: AllMyStatuses.FB.UserID}
+						});
+					}
+				);
+
+				FB.Event.subscribe('edge.remove',
+					function(response) {
+						_gaq.push(['_trackSocial', 'Facebook', 'Unlike', AllMyStatuses.Urls.canvas]);
+						$.ajax({
+							type: 'POST',
+							url: AllMyStatuses.Urls.ajax,
+							data: {p: 1, uid: AllMyStatuses.FB.UserID}
+						});
+					}
+				);
+
+			} else {
+				/*FB.login(function(response) {
+					if (response.authResponse) {
+						//top.location.href = fbCanvasURL;
+						//fbUserID = response.authResponse.userID;
+						//$('#btnMore').click();
+						FB.Canvas.setAutoGrow();
+					} else {
+						//top.location.href = "http://www.facebook.com/";
+					}
+				}, {scope: fbPerms});*/
+			}
+        }, {scope: AllMyStatuses.FB.Perms})
 	});
 };
 
