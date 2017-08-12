@@ -3,19 +3,19 @@
 	 * ID de l'application
 	 * @var string
 	 */
-	define('FB_ID', 'EDIT_ME');
+	define('FB_ID', getenv('AMS_FB_ID'));
 
 	/**
 	 * Clé d'API de l'application
 	 * @var string
 	 */
-	define('FB_APIKEY', 'EDIT_ME');
+	define('FB_APIKEY', getenv('AMS_FB_APIKEY'));
 
 	/**
 	 * Clé secrète de l'application
 	 * @var string
 	 */
-	define('FB_SECRET', 'EDIT_ME');
+	define('FB_SECRET', getenv('AMS_FB_SECRET'));
 
 	/**
 	 * URL de canvas Facebook de l'application
@@ -46,7 +46,7 @@
 	 * Mon ID Facebook
 	 * @var string
 	 */
-	define('FB_MY_UID', 'EDIT_ME');
+	define('FB_MY_UID', getenv('AMS_FB_MY_UID'));
 
 	/**
 	 * ID de l'utilisateur

@@ -1,14 +1,6 @@
 <?php
-	if(isLocal()) {
-		define('SQL_HOST', 'localhost');
-		define('SQL_PORT', '3306');
-		define('SQL_USER', 'root');
-		define('SQL_PASS', 'EDIT_ME');
-		define('SQL_DB', 'all-my-statuses');
-	} else {
-		define('SQL_HOST', 'EDIT_ME');
-		define('SQL_PORT', '3306');
-		define('SQL_USER', 'EDIT_ME');
-		define('SQL_PASS', 'EDIT_ME');
-		define('SQL_DB', 'EDIT_ME');
-	}
+    define('SQL_HOST', getenv('AMS_SQL_HOST'));
+    define('SQL_PORT', getenv('AMS_SQL_PORT'));
+    define('SQL_USER', getenv('AMS_SQL_USER'));
+    define('SQL_PASS', getenv('AMS_SQL_PASS'));
+    define('SQL_DB', getenv('AMS_SQL_DB'));

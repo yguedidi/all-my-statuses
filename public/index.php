@@ -1,4 +1,13 @@
 <?php
+	use Symfony\Component\Dotenv\Dotenv;
+
+	require __DIR__ . '/../vendor/autoload.php';
+
+	if (file_exists(__DIR__.'/../.env')) {
+        $dotenv = new Dotenv();
+        $dotenv->load(__DIR__.'/../.env');
+	}
+
     header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 
     if(isset($_SERVER['HTTP_X_ENV']) && 'dev' == $_SERVER['HTTP_X_ENV']) {
