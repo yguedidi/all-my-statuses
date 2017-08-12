@@ -12,7 +12,7 @@ deny from all
 </Limit>
 
 RewriteEngine On
-RewriteBase /allmystatuses
+RewriteBase /all-my-statuses
 
 #
 # Fichier CSS & JavaScript
