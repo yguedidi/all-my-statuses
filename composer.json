@@ -1,0 +1,12 @@
+{
+    "name": "yassine/all-my-statuses",
+    "type": "project",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Yassine Guedidi",
+            "email": "yassine@guedidi.com"
+        }
+    ],
+    "require": {}
+}
