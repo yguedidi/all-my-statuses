@@ -251,6 +251,7 @@ window.fbAsyncInit = function() {
 		cookie: true,
 		xfbml: true,
 		oauth: true,
+        version: 'v2.4',
 		channelUrl: AllMyStatuses.Urls.channel});
 	
 	//FB.Canvas.EarlyFlush.addResource(AllMyStatuses.Urls.home+'style.css');
@@ -307,7 +308,11 @@ $(function() {
 		// Facebook
 		var fb = document.createElement('script');
 		fb.async = true;
-		fb.src = document.location.protocol + '//connect.facebook.net/'+AllMyStatuses.FB.Locale+'/all.js';
+		if (AllMyStatuses.FB.Debug) {
+            fb.src = document.location.protocol + '//connect.facebook.net/en_US/sdk/debug.js';
+		} else {
+            fb.src = document.location.protocol + '//connect.facebook.net/'+AllMyStatuses.FB.Locale+'/all.js';
+		}
 		s.parentNode.insertBefore(fb, s);
 		
 		// Google Analytics

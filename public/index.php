@@ -324,6 +324,7 @@
 							getJS(	'AllMyStatuses.FB.UserID = "'.$FbUserID.'";'.
 									'AllMyStatuses.FB.Locale = "'.$Fb->getUserLocale().'";'.
 									'AllMyStatuses.FB.Params.limit = '.NB_STATUSES_BY_PAGE.';'.
+									'AllMyStatuses.FB.Debug = '.(!isProd() ? 'true' : 'false').';'.
 									'I18n.currentLocale = "'.$Fb->getUserLocale().'";'.
 									'I18n.currentLanguage = '.getI18nLanguage().';').
 						'</script>'.
