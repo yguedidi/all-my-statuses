@@ -101,7 +101,7 @@ AllMyStatuses.FB.sendReuseRequests = function(friends, successCallback, cancelCa
 AllMyStatuses.FB.getStatuses = function(callback) {
 	FB.api(
 		'/me/feed',
-		{fields: 'id,message,type,updated_time', limit:AllMyStatuses.FB.Params.limit+1, offset:AllMyStatuses.FB.Params.offset},
+		{fields: 'id,message,type,permalink_url,updated_time', limit:AllMyStatuses.FB.Params.limit+1, offset:AllMyStatuses.FB.Params.offset},
 		function(response) {
 			var fetchedStatuses = 0;
 			var fetchedFeedItems = (response.data.length > AllMyStatuses.FB.Params.limit ? AllMyStatuses.FB.Params.limit : response.data.length);
@@ -169,7 +169,7 @@ AllMyStatuses.getStatusElt = function(status, usable) {
 					'<a id="btnReuse_'+status.id+'" class="btn btnReuse'+hideClass+'" href="#">'+
 						'<span>'+I18n.getText(I18n.ids.BTN_REUSE)+'</span>'+
 					'</a>'+
-					'<a id="btnView_'+status.id+'" class="btn btnView'+infosClass+'" target="_blank" href="http://www.facebook.com/'+AllMyStatuses.FB.UserID+'/posts/'+status.id+'">'+
+					'<a id="btnView_'+status.id+'" class="btn btnView'+infosClass+'" target="_blank" href="'+status.permalink_url+'">'+
 						btnView+
 					'</a>'+
 					'<span>'+I18n.getDate(date)+'</span>'+
@@ -392,6 +392,7 @@ $(function() {
 				} else {
 					FB.api(
 						'/'+response.id.split('_', 2)[1],
+						{fields: 'id,message,type,permalink_url,updated_time'},
 						function(response) {
 							AllMyStatuses.currentStatus = response.message;
 							$('#listStatuses').prepend(AllMyStatuses.getStatusElt(response, response.message != AllMyStatuses.currentStatus));
