@@ -210,6 +210,36 @@ AllMyStatuses.loadContent = function(first) {
 	});
 };
 
+AllMyStatuses.entryPoint = function() {
+    //fbUserID = response.authResponse.userID;
+
+    AllMyStatuses.FB.clearRequests(
+        AllMyStatuses.main
+    );
+
+    FB.Event.subscribe('edge.create',
+        function(response) {
+            _gaq.push(['_trackSocial', 'Facebook', 'Like', AllMyStatuses.Urls.canvas]);
+            $.ajax({
+                type: 'POST',
+                url: AllMyStatuses.Urls.ajax,
+                data: {p: 0, uid: AllMyStatuses.FB.UserID}
+            });
+        }
+    );
+
+    FB.Event.subscribe('edge.remove',
+        function(response) {
+            _gaq.push(['_trackSocial', 'Facebook', 'Unlike', AllMyStatuses.Urls.canvas]);
+            $.ajax({
+                type: 'POST',
+                url: AllMyStatuses.Urls.ajax,
+                data: {p: 1, uid: AllMyStatuses.FB.UserID}
+            });
+        }
+    );
+};
+
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-36615191-1']);
 _gaq.push(['_trackPageview']);
@@ -227,49 +257,46 @@ window.fbAsyncInit = function() {
 	//FB.Canvas.EarlyFlush.addResource(AllMyStatuses.Urls.home+'script.js');
 
 	FB.getLoginStatus(function(response) {
-        FB.login(function(){
-			if (response.authResponse) {
-				//fbUserID = response.authResponse.userID;
+		if (response.authResponse) {
+            FB.api('/me/permissions', function(response) {
+                if(!response || !response.data) {
+                    FB.login(function(){
+                        AllMyStatuses.entryPoint();
+                    }, {scope: AllMyStatuses.FB.Perms});
 
-				AllMyStatuses.FB.clearRequests(
-					AllMyStatuses.main
-				);
+                	return;
+                }
 
-				FB.Event.subscribe('edge.create',
-					function(response) {
-						_gaq.push(['_trackSocial', 'Facebook', 'Like', AllMyStatuses.Urls.canvas]);
-						$.ajax({
-							type: 'POST',
-							url: AllMyStatuses.Urls.ajax,
-							data: {p: 0, uid: AllMyStatuses.FB.UserID}
-						});
-					}
-				);
+                var hasPermission = false;
 
-				FB.Event.subscribe('edge.remove',
-					function(response) {
-						_gaq.push(['_trackSocial', 'Facebook', 'Unlike', AllMyStatuses.Urls.canvas]);
-						$.ajax({
-							type: 'POST',
-							url: AllMyStatuses.Urls.ajax,
-							data: {p: 1, uid: AllMyStatuses.FB.UserID}
-						});
-					}
-				);
+                $.each(response.data, function(index, request) {
+                    if (response.data[index].permission == 'user_posts' && response.data[index].status == 'granted') {
+                        hasPermission = true;
 
-			} else {
-				/*FB.login(function(response) {
-					if (response.authResponse) {
-						//top.location.href = fbCanvasURL;
-						//fbUserID = response.authResponse.userID;
-						//$('#btnMore').click();
-						FB.Canvas.setAutoGrow();
-					} else {
-						//top.location.href = "http://www.facebook.com/";
-					}
-				}, {scope: fbPerms});*/
-			}
-        }, {scope: AllMyStatuses.FB.Perms})
+                        AllMyStatuses.entryPoint();
+
+                        return;
+                    }
+                });
+
+                if (!hasPermission) {
+                    FB.login(function(){
+                        AllMyStatuses.entryPoint();
+                    }, {scope: AllMyStatuses.FB.Perms, auth_type: 'rerequest'})
+                }
+            });
+		} else {
+			/*FB.login(function(response) {
+				if (response.authResponse) {
+					//top.location.href = fbCanvasURL;
+					//fbUserID = response.authResponse.userID;
+					//$('#btnMore').click();
+					FB.Canvas.setAutoGrow();
+				} else {
+					//top.location.href = "http://www.facebook.com/";
+				}
+			}, {scope: fbPerms});*/
+		}
 	});
 };
 

@@ -319,7 +319,7 @@
 						'<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery'.$min.'.js"></script>'.
 						'<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui'.$min.'.js"></script>'.
 						//(SHOW_ADS ? '<script type="text/javascript" src="//social.bidsystem.com/client/Adk.Ad'.$min.'.js"></script>' : '').
-						'<script type="text/javascript" src="'.APP_URL.'20170812213113.js"></script>'.
+						'<script type="text/javascript" src="'.APP_URL.'20170813044312.js"></script>'.
 						'<script type="text/javascript">'.
 							getJS(	'AllMyStatuses.FB.UserID = "'.$FbUserID.'";'.
 									'AllMyStatuses.FB.Locale = "'.$Fb->getUserLocale().'";'.
