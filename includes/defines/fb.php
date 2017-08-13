@@ -21,7 +21,7 @@
 	 * URL de canvas Facebook de l'application
 	 * @var string
 	 */
-	define('FB_CANVAS', 'https://apps.facebook.com/all-my-statuses/');
+	define('FB_CANVAS', getenv('AMS_FB_CANVAS'));
 
 	/**
 	 * URL de callback Facebook de l'application
