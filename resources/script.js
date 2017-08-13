@@ -409,7 +409,7 @@ $(function() {
 							
 							$e.removeClass('loading');
 							
-							AllMyStatuses.FB.sendReuseRequests($('#eltStatus_'+postId).data('friends'));
+							//AllMyStatuses.FB.sendReuseRequests($('#eltStatus_'+postId).data('friends'));
 						}
 					);
 				}
