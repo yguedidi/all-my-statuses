@@ -350,7 +350,7 @@ $(function() {
 	
 	$('#listStatuses').delegate('.btnReuse', 'click', function(e) {
 		$e = $(e.currentTarget);
-		var postId = $e.attr('id').split('_', 2)[1];
+		var postId = $e.attr('id').replace(/^btnReuse_/, '');
 		var postMessage = $('#eltStatus_'+postId).data('message');
 		$e.addClass('loading');
 		
@@ -391,9 +391,15 @@ $(function() {
 					}
 				} else {
 					FB.api(
-						'/'+response.id.split('_', 2)[1],
+						'/'+response.id,
 						{fields: 'id,message,type,permalink_url,updated_time'},
 						function(response) {
+                            if (!response || response.error) {
+                                $e.removeClass('loading');
+
+                                return;
+                            }
+
 							AllMyStatuses.currentStatus = response.message;
 							$('#listStatuses').prepend(AllMyStatuses.getStatusElt(response, response.message != AllMyStatuses.currentStatus));
 							
