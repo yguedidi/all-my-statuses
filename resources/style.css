@@ -96,17 +96,6 @@ h2 span {
 	margin: 20px auto;
 }
 
-#body #inviteBox {
-	margin: 5px 0 20px;
-	padding: 10px;
-	background: url("info16.gif") no-repeat 10px center #f7f7f7;
-	text-indent: 20px;
-}
-
-#body #inviteBox a.closeInvite {
-	float: right;
-}
-
 #body ul {
 	margin: 30px 0 0 0;
 	padding: 0;

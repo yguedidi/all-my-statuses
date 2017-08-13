@@ -135,17 +135,11 @@
 							//'I18n.ids.BTN_SENDTO = '.I18N_TEXT_BTN_SENDTO.';'.PHP_EOL.
 							'I18n.ids.LOADING = '.I18N_TEXT_LOADING.';'.PHP_EOL.
 							'I18n.ids.NO_MORE = '.I18N_TEXT_NO_MORE.';'.PHP_EOL.
-							'I18n.ids.STATUSES = '.I18N_TEXT_INVITE_DESC.';'.PHP_EOL.
 							'I18n.ids.COPYRIGHT = '.I18N_TEXT_COPYRIGHT.';'.PHP_EOL.
 							'I18n.ids.DATETIME_FORMAT = '.I18N_TEXT_DATETIME_FORMAT.';'.PHP_EOL.
 							'I18n.ids.ERROR_TITLE = '.I18N_TEXT_ERROR_TITLE.';'.PHP_EOL.
 							'I18n.ids.ERROR_DESC = '.I18N_TEXT_ERROR_DESC.';'.PHP_EOL.
 							'I18n.ids.ERROR_CLOSE = '.I18N_TEXT_ERROR_CLOSE.';'.PHP_EOL.
-							'I18n.ids.INVITE_TITLE = '.I18N_TEXT_INVITE_TITLE.';'.PHP_EOL.
-							'I18n.ids.INVITE_DESC = '.I18N_TEXT_INVITE_DESC.';'.PHP_EOL.
-							'I18n.ids.INVITE_CLOSE = '.I18N_TEXT_INVITE_CLOSE.';'.PHP_EOL.
-							'I18n.ids.REQUEST_INVITE_TITLE = '.I18N_TEXT_REQUEST_INVITE_TITLE.';'.PHP_EOL.
-							'I18n.ids.REQUEST_INVITE_BODY = '.I18N_TEXT_REQUEST_INVITE_BODY.';'.PHP_EOL.
 							'I18n.ids.REQUEST_REUSE_TITLE = '.I18N_TEXT_REQUEST_REUSE_TITLE.';'.PHP_EOL.
 							'I18n.ids.REQUEST_REUSE_BODY = '.I18N_TEXT_REQUEST_REUSE_BODY.';'.PHP_EOL.
 							'I18n.ids.REQUEST_REUSE_FILTER_ALL = '.I18N_TEXT_REQUEST_REUSE_FILTER_ALL.';'.PHP_EOL.
@@ -286,7 +280,7 @@
 				'<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xml:lang="fr">'.
 					'<head>'.
 						'<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />'.
-				 		'<link rel="stylesheet" type="text/css" href="'.APP_URL.'jf10dfzb.css" />'.
+				 		'<link rel="stylesheet" type="text/css" href="'.APP_URL.'20170813230325.css" />'.
 						'<title>'.APP_NAME.'</title>'.
 					'</head>'.
 					'<body>'.
@@ -299,7 +293,6 @@
 							'<div id="btnLikeTop"><fb:like href="'.FB_PAGE.'" ref="like_top" show_faces="false" action="like" layout="button_count" font="lucida grande"></fb:like></div>'.
 						'</h2>'.
 						'<div id="body">'.
-							'<div id="inviteBox"><a href="#" class="closeInvite">'.getI18nText(I18N_TEXT_INVITE_CLOSE).'</a><span>'.getI18nText(I18N_TEXT_INVITE_TITLE).'</span> <a id="btnInvite" href="#">'.getI18nText(I18N_TEXT_INVITE_DESC).'</a></div>'.
 							'<ul id="listStatuses"></ul>'.
 							'<div id="boxFooter" class="loading">'.
 								'<span class="nbStatuses"><span id="nbStatuses">0</span> '.getI18nText(I18N_TEXT_STATUSES).'</span>'.
@@ -319,7 +312,7 @@
 						'<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery'.$min.'.js"></script>'.
 						'<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui'.$min.'.js"></script>'.
 						//(SHOW_ADS ? '<script type="text/javascript" src="//social.bidsystem.com/client/Adk.Ad'.$min.'.js"></script>' : '').
-						'<script type="text/javascript" src="'.APP_URL.'20170813224527.js"></script>'.
+						'<script type="text/javascript" src="'.APP_URL.'20170813230325.js"></script>'.
 						'<script type="text/javascript">'.
 							getJS(	'AllMyStatuses.FB.UserID = "'.$FbUserID.'";'.
 									'AllMyStatuses.FB.Locale = "'.$Fb->getUserLocale().'";'.

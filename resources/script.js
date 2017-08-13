@@ -30,27 +30,6 @@ AllMyStatuses.FB.clearRequests = function(callback) {
 	});
 };
 
-AllMyStatuses.FB.sendInviteRequests = function(successCallback, cancelCallback) {
-	if(typeof(successCallback) != 'function') successCallback = function(){};
-	if(typeof(cancelCallback) != 'function') cancelCallback = function(){};
-	
-	FB.ui({
-		method: 'apprequests',
-		filters: ['app_non_users'],
-		title: I18n.getText(I18n.ids.REQUEST_INVITE_TITLE),
-		message: I18n.getText(I18n.ids.REQUEST_INVITE_BODY),
-		data: {type: 'req_invite'}/*,
-		max_recipients: 20*/},
-		function(response) {
-			if(response && response.request_ids && response.request_ids.length > 0) {
-				successCallback(response.request_ids);
-			} else {
-				cancelCallback();
-			}
-		}
-	);
-};
-
 AllMyStatuses.FB.sendReuseRequests = function(friends, successCallback, cancelCallback) {
 	if(typeof(successCallback) != 'function') successCallback = function(){};
 	if(typeof(cancelCallback) != 'function') cancelCallback = function(){};
@@ -316,22 +295,6 @@ $(function() {
 	//Adk.ShowAd('adk-1483', { pid: 394340,  appid: 219665, plid: 15965, placement: 1483, adsize: '728x90' });
 	//Adk.ShowAd('adk-1484', { pid: 394340,  appid: 219665, plid: 15965, placement: 1484, adsize: '728x90' });
 
-	$('#inviteBox').delegate('.closeInvite', 'click', function(e) {
-		$e = $(e.currentTarget);
-		$('#inviteBox').slideUp(500, function() {
-			$(this).remove();
-		});
-		
-		e.preventDefault();
-	});
-	$('#inviteBox').delegate('#btnInvite', 'click', function(e) {
-		AllMyStatuses.FB.sendInviteRequests(function() {
-			//$('#inviteBox').remove();
-		});
-		
-		e.preventDefault();
-	});
-	
 	$('#btnMore').click(function(e) {
 		AllMyStatuses.loadContent();
 		

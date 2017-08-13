@@ -20,11 +20,6 @@
 	$i18nTexts[I18N_LANG_EN][I18N_TEXT_ERROR_TITLE] = '<fb:intl desc="Error label">Error</fb:intl>';
 	$i18nTexts[I18N_LANG_EN][I18N_TEXT_ERROR_DESC] = '<fb:intl desc="Error description">You reached your publish limit! Try later.</fb:intl>';
 	$i18nTexts[I18N_LANG_EN][I18N_TEXT_ERROR_CLOSE] = '<fb:intl desc="Error close button label">Close</fb:intl>';
-	$i18nTexts[I18N_LANG_EN][I18N_TEXT_INVITE_TITLE] = '<fb:intl desc="Invite bold text">Do you think this app can be useful for your friends ?</fb:intl>';
-	$i18nTexts[I18N_LANG_EN][I18N_TEXT_INVITE_DESC] = '<fb:intl desc="Invite link desc">Invite them</fb:intl>';
-	$i18nTexts[I18N_LANG_EN][I18N_TEXT_INVITE_CLOSE] = '<fb:intl desc="Invite close button label">Close</fb:intl>';
-	$i18nTexts[I18N_LANG_EN][I18N_TEXT_REQUEST_INVITE_TITLE] = 'Invite your friends to use '.APP_NAME;
-	$i18nTexts[I18N_LANG_EN][I18N_TEXT_REQUEST_INVITE_BODY] = 'Come remember your statuses!';
 	$i18nTexts[I18N_LANG_EN][I18N_TEXT_REQUEST_REUSE_TITLE] = 'Notify your friends who liked and/or commented?';
 	$i18nTexts[I18N_LANG_EN][I18N_TEXT_REQUEST_REUSE_BODY] = 'I reused a status that you liked and/or commented!';
 	$i18nTexts[I18N_LANG_EN][I18N_TEXT_REQUEST_REUSE_FILTER_ALL] = 'All';
@@ -49,11 +44,6 @@
 	$i18nTexts[I18N_LANG_FR][I18N_TEXT_ERROR_TITLE] = 'Erreur';
 	$i18nTexts[I18N_LANG_FR][I18N_TEXT_ERROR_DESC] = 'Vous avez atteint votre limite de publication ! Essayer plus tard.';
 	$i18nTexts[I18N_LANG_FR][I18N_TEXT_ERROR_CLOSE] = 'Fermer';
-	$i18nTexts[I18N_LANG_FR][I18N_TEXT_INVITE_TITLE] = 'Pensez-vous que cette application peut être utile à vos amis ?';
-	$i18nTexts[I18N_LANG_FR][I18N_TEXT_INVITE_DESC] = 'Invitez les';
-	$i18nTexts[I18N_LANG_FR][I18N_TEXT_INVITE_CLOSE] = 'Fermer';
-	$i18nTexts[I18N_LANG_FR][I18N_TEXT_REQUEST_INVITE_TITLE] = 'Invitez vos amis à utiliser '.$i18nTexts[I18N_LANG_FR][I18N_TEXT_APPNAME];
-	$i18nTexts[I18N_LANG_FR][I18N_TEXT_REQUEST_INVITE_BODY] = 'Venez vous rappeler vos statuts !';
 	$i18nTexts[I18N_LANG_FR][I18N_TEXT_REQUEST_REUSE_TITLE] = 'Prévenir les amis qui ont aimé et/ou commenté ?';
 	$i18nTexts[I18N_LANG_FR][I18N_TEXT_REQUEST_REUSE_BODY] = 'Je viens de réutiliser un statut que tu as aimé et/ou commenté !';
 	$i18nTexts[I18N_LANG_FR][I18N_TEXT_REQUEST_REUSE_FILTER_ALL] = 'Tous';
