@@ -28,11 +28,8 @@
 		if(	!(isset($_SERVER['HTTP_PRAGMA']) && $_SERVER['HTTP_PRAGMA'] == 'no-cache') &&
 			(isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) === $last_timestamp) &&
 			(isset($_SERVER['HTTP_IF_NONE_MATCH']) && $_SERVER['HTTP_IF_NONE_MATCH'] === $last_etag)) {
-			if(isAlwaysData()) {
-                            header('Status: 304 Not Modified', true, 304);
-                        } else {
-                            header('Not Modified', true, 304);
-                        }
+            header('Status: 304 Not Modified', true, 304);
+
 			exit();
 		}
 	}

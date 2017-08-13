@@ -1,5 +1,5 @@
 <?php
-	define('CACHE_WHEN', isMyProd() || isProd());
+	define('CACHE_WHEN', isProd());
 	
 	define('PAGE_CACHE', 180);
 	define('STYLE_CACHE', 31557600);

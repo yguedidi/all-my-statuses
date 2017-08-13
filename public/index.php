@@ -36,7 +36,7 @@
 	require_once '../includes/fb.php';
 	require_once '../includes/cache.php';
 	require_once '../includes/i18n.php';
-	if(isMyProd() || isProd()) {
+	if(isProd()) {
 		require_once '../includes/libraries/jsmin.php';
 		require_once '../includes/libraries/cssmin-v2.0.2.1.php';
 	}
@@ -279,7 +279,7 @@
 		// Gestion de l'Unicode
 		header('Content-Type: text/html; charset=utf-8');
 
-		$min = isMyProd() || isProd() ? '.min' : '';
+		$min = isProd() ? '.min' : '';
 
 		// Corps de page
 		echo 	'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'.
@@ -295,7 +295,7 @@
                         //(SHOW_ADS ? '<iframe width="728" height="90" frameborder="no" framespacing="0" scrolling="no" src="//ads.lfstmedia.com/slot/slot25080?ad_size=728x90&adkey=e94"></iframe>' : '').
                         '<h2>'.
 							getI18nText(I18N_TEXT_APPNAME).
-							'<span>'.APP_VERSION.(!isProd() ? (isMyProd() ? ' [Prod]' : (isPreprod() ? ' [Preprod]' : (isLocal() ? ' [Local]' : ''))).(isCanvas() ? '[Canvas]' : '[Site]') : '').'</span>'.
+							'<span>'.APP_VERSION.(isLocal() ? ' [Local]'.(isCanvas() ? '[Canvas]' : '[Site]') : '').'</span>'.
 							'<div id="btnLikeTop"><fb:like href="'.FB_PAGE.'" ref="like_top" show_faces="false" action="like" layout="button_count" font="lucida grande"></fb:like></div>'.
 						'</h2>'.
 						'<div id="body">'.
