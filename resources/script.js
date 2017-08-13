@@ -3,8 +3,6 @@ AllMyStatuses.limitReached = false;
 //AllMyStatuses.allStatuses = new Array();
 
 AllMyStatuses.main = function() {
-	AllMyStatuses.FB.getNbStatuses();
-	
 	AllMyStatuses.loadContent(true);
 	
 	FB.Canvas.setAutoGrow();
@@ -16,16 +14,6 @@ AllMyStatuses.getStatusHTML = function(status) {
 
 AllMyStatuses.getStatusText = function(status) {
 	return status.replace(/<br\/?>/gi, '\n');
-};
-
-AllMyStatuses.FB.getNbStatuses = function() {
-	FB.api('/me/feed',
-			{fields: 'id', limit: 500},
-			function(response) {
-				if(response && response.data) {
-					$('#nbStatusesTotal').text('/ '+response.data.length);
-			}
-	});
 };
 
 AllMyStatuses.FB.clearRequests = function(callback) {

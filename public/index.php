@@ -302,7 +302,7 @@
 							'<div id="inviteBox"><a href="#" class="closeInvite">'.getI18nText(I18N_TEXT_INVITE_CLOSE).'</a><span>'.getI18nText(I18N_TEXT_INVITE_TITLE).'</span> <a id="btnInvite" href="#">'.getI18nText(I18N_TEXT_INVITE_DESC).'</a></div>'.
 							'<ul id="listStatuses"></ul>'.
 							'<div id="boxFooter" class="loading">'.
-								'<span class="nbStatuses"><span id="nbStatuses">0</span> '.getI18nText(I18N_TEXT_STATUSES).' <span id="nbStatusesTotal"></span></span>'.
+								'<span class="nbStatuses"><span id="nbStatuses">0</span> '.getI18nText(I18N_TEXT_STATUSES).'</span>'.
 								'<a id="btnMore" href="#">'.getI18nText(I18N_TEXT_BTN_MORE).'</a>'.
 								'<span id="lbLoading">'.getI18nText(I18N_TEXT_LOADING).'</span>'.
 								'<span id="lbNoMore">'.getI18nText(I18N_TEXT_NO_MORE).'</span>'.
@@ -319,7 +319,7 @@
 						'<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery'.$min.'.js"></script>'.
 						'<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui'.$min.'.js"></script>'.
 						//(SHOW_ADS ? '<script type="text/javascript" src="//social.bidsystem.com/client/Adk.Ad'.$min.'.js"></script>' : '').
-						'<script type="text/javascript" src="'.APP_URL.'20170813172909.js"></script>'.
+						'<script type="text/javascript" src="'.APP_URL.'20170813224345.js"></script>'.
 						'<script type="text/javascript">'.
 							getJS(	'AllMyStatuses.FB.UserID = "'.$FbUserID.'";'.
 									'AllMyStatuses.FB.Locale = "'.$Fb->getUserLocale().'";'.
