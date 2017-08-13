@@ -185,6 +185,8 @@ AllMyStatuses.loadContent = function(first) {
 		
 		if(more) {
 			$('#btnMore').show();
+
+            AllMyStatuses.loadContent();
 		} else {
 			$('#boxFooter').addClass('noMore');
 		}
