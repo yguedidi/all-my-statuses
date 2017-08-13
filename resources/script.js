@@ -101,7 +101,7 @@ AllMyStatuses.FB.sendReuseRequests = function(friends, successCallback, cancelCa
 AllMyStatuses.FB.getStatuses = function(callback) {
 	FB.api(
 		'/me/feed',
-		{fields: 'id,message,type,permalink_url,updated_time', limit:AllMyStatuses.FB.Params.limit+1, offset:AllMyStatuses.FB.Params.offset},
+		{fields: 'id,message,type,permalink_url,updated_time,comments.fields(id).limit(500),likes.fields(id).limit(500)', limit:AllMyStatuses.FB.Params.limit+1, offset:AllMyStatuses.FB.Params.offset},
 		function(response) {
 			var fetchedStatuses = 0;
 			var fetchedFeedItems = (response.data.length > AllMyStatuses.FB.Params.limit ? AllMyStatuses.FB.Params.limit : response.data.length);
@@ -392,7 +392,7 @@ $(function() {
 				} else {
 					FB.api(
 						'/'+response.id,
-						{fields: 'id,message,type,permalink_url,updated_time'},
+						{fields: 'id,message,type,permalink_url,updated_time,comments.fields(id).limit(500),likes.fields(id).limit(500)'},
 						function(response) {
                             if (!response || response.error) {
                                 $e.removeClass('loading');
