@@ -36,10 +36,6 @@
 	require_once '../includes/fb.php';
 	require_once '../includes/cache.php';
 	require_once '../includes/i18n.php';
-	if(isProd()) {
-		require_once '../includes/libraries/jsmin.php';
-		require_once '../includes/libraries/cssmin-v2.0.2.1.php';
-	}
 
 	define('USE_CACHE', CACHE_WHEN || true);
 	define('SHOW_ADS', !isLocal() || true);

@@ -1,6 +1,4 @@
 <?php
-	require_once 'libraries/FirePHP.class.php';
-
 	$FirePHP = FirePHP::getInstance(true);
 
 	$FirePHP->registerErrorHandler(false);
