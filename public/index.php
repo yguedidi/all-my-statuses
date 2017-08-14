@@ -10,25 +10,6 @@
 
     header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 
-    if(isset($_SERVER['HTTP_X_ENV']) && 'dev' == $_SERVER['HTTP_X_ENV']) {
-		$url = "http://dev.guedidi.com".$_SERVER['REQUEST_URI'];
-
-		if('POST' == $_SERVER['REQUEST_METHOD']) {
-			echo 	'<form action="'.$url.'" method="post" name="frm">';
-			foreach ($_POST as $a => $b) {
-				echo 	'<input type="hidden" name="'.$a.'" value="'.$b.'" />';
-			}
-			echo 	'</form>'.
-					'<script type="application/javascript">'.
-						'document.frm.submit();'.
-					'</script>';
-		} else {
-			header('Location: '.$url);
-		}
-
-        exit();
-    }
-
 	// Requis généraux
 	require_once '../includes/app.php';
 	require_once '../includes/server.php';
@@ -231,7 +212,7 @@
                     echo '<script type="text/javascript">top.location.href = "'.FB_CANVAS.'";</script>';
                     exit();
                 } else {
-                    undeleteUser($FbUserID, $Fb->getUserLocale());
+                    undeleteUser($FbUserID);
                 }
             }
 		//}
@@ -280,10 +261,7 @@
 						'<title>'.APP_NAME.'</title>'.
 					'</head>'.
 					'<body>'.
-						//(SHOW_ADS ? '<a id="ad-top" target="_blank" href="http://bux.to/register.php/?r=yguedidi"><img src="http://bux.to/images/banner/banner.gif" width="468" height="60"></a>' : '').
-						//(SHOW_ADS ? '<div id="adk-1483"></div>' : '').
-                        //(SHOW_ADS ? '<iframe width="728" height="90" frameborder="no" framespacing="0" scrolling="no" src="//ads.lfstmedia.com/slot/slot25080?ad_size=728x90&adkey=e94"></iframe>' : '').
-                        '<h2>'.
+						'<h2>'.
 							getI18nText(I18N_TEXT_APPNAME).
 							'<span>'.APP_VERSION.(isLocal() ? ' [Local]'.(isCanvas() ? '[Canvas]' : '[Site]') : '').'</span>'.
 							'<div id="btnLikeTop"><fb:like href="'.FB_PAGE.'" ref="like_top" show_faces="false" action="like" layout="button_count" font="lucida grande"></fb:like></div>'.
@@ -296,18 +274,12 @@
 								'<span id="lbLoading">'.getI18nText(I18N_TEXT_LOADING).'</span>'.
 								'<span id="lbNoMore">'.getI18nText(I18N_TEXT_NO_MORE).'</span>'.
 							'</div>'.
-							//'<div id="loading">'.getI18nText(I18N_TEXT_LOADING).'</div>'.
 						'</div>'.
 						'<div id="btnLikeBottom"><fb:like href="'.FB_PAGE.'" ref="like_bottom" width="550" show_faces="true" action="like" font="lucida grande"></fb:like></div>'.
 						'<p id="copyright">'.getI18nText(I18N_TEXT_COPYRIGHT).'</p>'.
-						//(SHOW_ADS ? '<a id="ad-bottom" target="_blank" href="http://bux.to/register.php/?r=yguedidi"><img src="http://bux.to/images/banner/banner.gif" width="468" height="60"></a>' : '').
-						//(SHOW_ADS ? '<div id="adk-1484"></div>' : '').
-						//(SHOW_ADS ? '<iframe width="728" height="90" frameborder="no" framespacing="0" scrolling="no" src="//ads.lfstmedia.com/slot/slot25081?ad_size=728x90&adkey=ecb"></iframe>' : '').
 						'<div id="fb-root"></div>'.
-						//'<script type="text/javascript" src="//connect.facebook.net/'.$Fb->getUserLocale().'/all.js"></script>'.
 						'<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery'.$min.'.js"></script>'.
 						'<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui'.$min.'.js"></script>'.
-						//(SHOW_ADS ? '<script type="text/javascript" src="//social.bidsystem.com/client/Adk.Ad'.$min.'.js"></script>' : '').
 						'<script type="text/javascript" src="'.APP_URL.'20170813230325.js"></script>'.
 						'<script type="text/javascript">'.
 							getJS(	'AllMyStatuses.FB.UserID = "'.$FbUserID.'";'.
@@ -317,17 +289,6 @@
 									'I18n.currentLocale = "'.$Fb->getUserLocale().'";'.
 									'I18n.currentLanguage = '.getI18nLanguage().';').
 						'</script>'.
-//                        '<script type="text/javascript">'.
-//                            'var pkBaseURL = (("https:" == document.location.protocol) ? "EDIT_ME" : "EDIT_ME");'.
-//                            'document.write(unescape("%3Cscript src=\'" + pkBaseURL + "piwik.js\' type=\'text/javascript\'%3E%3C/script%3E"));'.
-//                            '</script><script type="text/javascript">'.
-//                            'try {'.
-//                            'var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 2);'.
-//                            'piwikTracker.trackPageView();'.
-//                            'piwikTracker.enableLinkTracking();'.
-//                            '} catch( err ) {}'.
-//                        '</script>'.
-//                        '<noscript><p><img src="EDIT_ME" style="border:0" alt="" /></p></noscript>'.
 					'</body>'.
 				'</html>';
 
@@ -339,5 +300,3 @@
 		// Affichage
 		ob_end_flush();
 	}
-
-?>
