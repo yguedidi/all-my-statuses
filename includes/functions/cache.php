@@ -1,4 +1,6 @@
 <?php
+    require_once __DIR__.'/server.php';
+
 	/**
 	 * Définis les entêtes de cache et renvois un code 304 en cas de non modification
 	 * @param $page Page courante
@@ -46,7 +48,7 @@
 	}
 
 	function getJS($js) {
-		if(class_exists('JSMin')) {
+		if(isProd()) {
 			// On minifie le JS
 			return JSMin::minify($js);
 		} else {
@@ -59,7 +61,7 @@
 	}
 
 	function getCSS($css) {
-		if(class_exists('CssMin')) {
+		if(isProd()) {
 			return CssMin::minify(
 				$css,
 				array(
