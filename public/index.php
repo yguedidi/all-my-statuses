@@ -280,7 +280,7 @@
 						'<div id="fb-root"></div>'.
 						'<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery'.$min.'.js"></script>'.
 						'<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui'.$min.'.js"></script>'.
-						'<script type="text/javascript" src="'.APP_URL.'20170813230325.js"></script>'.
+						'<script type="text/javascript" src="'.APP_URL.'20170912233901.js"></script>'.
 						'<script type="text/javascript">'.
 							getJS(	'AllMyStatuses.FB.UserID = "'.$FbUserID.'";'.
 									'AllMyStatuses.FB.Locale = "'.$Fb->getUserLocale().'";'.
