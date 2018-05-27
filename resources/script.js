@@ -16,55 +16,6 @@ AllMyStatuses.getStatusText = function(status) {
 	return status.replace(/<br\/?>/gi, '\n');
 };
 
-AllMyStatuses.FB.clearRequests = function(callback) {
-	if(typeof(callback) != 'function') { callback = function() {};}
-	
-	FB.api('/me/apprequests', function(response) {
-		if(response && response.data) {
-			$.each(response.data, function(index, request) {
-				FB.api('/'+request.id, 'delete');
-			});
-			
-			callback();
-		}
-	});
-};
-
-AllMyStatuses.FB.sendReuseRequests = function(friends, successCallback, cancelCallback) {
-	if(typeof(successCallback) != 'function') successCallback = function(){};
-	if(typeof(cancelCallback) != 'function') cancelCallback = function(){};
-	
-	var f = [];
-	if(friends.liked.length) {
-		f.push({name: I18n.getText(I18n.ids.REQUEST_REUSE_FILTER_LIKED), user_ids: friends.liked});
-	}
-	if(friends.commented.length) {
-		f.push({name: I18n.getText(I18n.ids.REQUEST_REUSE_FILTER_COMMENTED), user_ids: friends.commented});
-	}
-	if(f.length) {
-		if(f.length === 2) {
-			f.unshift({name: I18n.getText(I18n.ids.REQUEST_REUSE_FILTER_ALL), user_ids: friends.all});
-		}
-		
-		FB.ui({
-			method: 'apprequests',
-			filters: f,
-			title: I18n.getText(I18n.ids.REQUEST_REUSE_TITLE),
-			message: I18n.getText(I18n.ids.REQUEST_REUSE_BODY),
-			data: {type: 'req_reuse'}},
-			function(response) {
-				if(response && response.request_ids && response.request_ids.length > 0) {
-					successCallback(response.request_ids);
-				} else {
-					cancelCallback();
-				}
-			}
-		);
-	} else {
-		successCallback();
-	}
-};
-
 AllMyStatuses.FB.getStatuses = function(callback) {
 	FB.api(
 		'/me/feed',
@@ -100,31 +51,17 @@ AllMyStatuses.FB.getStatuses = function(callback) {
 };
 
 AllMyStatuses.getStatusElt = function(status, usable) {
-	var friends = {all: [], liked: [], commented: []};
 	var hideClass = usable ? '' : ' hide';
 	var btnView = I18n.getText(I18n.ids.BTN_VIEW), infosClass = true;
 	if((status.likes && status.likes.data && status.likes.data.length) || (status.comments && status.comments.data && status.comments.data.length)) {
 		btnView = '', infosClass = true;
 		if(status.comments && status.comments.data.length) {
 			btnView += '<span class="comments">'+status.comments.data.length+'</span>';
-			for(var i = 0; i < status.comments.data.length; i++) {
-				if(status.comments.data[i].from && status.comments.data[i].from.id && status.comments.data[i].from.id != AllMyStatuses.FB.UserID) {
-					friends.all.push(status.comments.data[i].from.id);
-					friends.commented.push(status.comments.data[i].from.id);
-				}
-			}
 		}
 		if(status.likes && status.likes.data.length) {
 			btnView += '<span class="likes">'+status.likes.data.length+'</span>';
-			for(var i = 0; i < status.likes.data.length; i++) {
-				if(status.likes.data[i].id) {
-					friends.all.push(status.likes.data[i].id && status.likes.data[i].id != AllMyStatuses.FB.UserID);
-					friends.liked.push(status.likes.data[i].id);
-				}
-			}
 		}
 	}
-	friends.all.unique();
 
 	var date = new Date();
 	date.setISO8601(status.updated_time);
@@ -142,7 +79,7 @@ AllMyStatuses.getStatusElt = function(status, usable) {
 					'<span>'+I18n.getDate(date)+'</span>'+
 					//'<span><fb:date t="'+date.getTime()+'" format="monthname_time"></fb:date></span>'+
 				'</div>'+
-			'</li>').data('message', status.message).data('friends', friends);
+			'</li>').data('message', status.message);
 };
 
 AllMyStatuses.updateUseBtn = function($elt) {
@@ -179,14 +116,6 @@ AllMyStatuses.loadContent = function(first) {
 	});
 };
 
-AllMyStatuses.entryPoint = function() {
-    //fbUserID = response.authResponse.userID;
-
-    AllMyStatuses.FB.clearRequests(
-        AllMyStatuses.main
-    );
-};
-
 window.fbAsyncInit = function() {
 	FB.init({
 		appId: AllMyStatuses.FB.AppID,
@@ -205,7 +134,7 @@ window.fbAsyncInit = function() {
             FB.api('/me/permissions', function(response) {
                 if(!response || !response.data) {
                     FB.login(function(){
-                        AllMyStatuses.entryPoint();
+                        AllMyStatuses.main();
                     }, {scope: AllMyStatuses.FB.Perms});
 
                 	return;
@@ -217,7 +146,7 @@ window.fbAsyncInit = function() {
                     if (response.data[index].permission == 'user_posts' && response.data[index].status == 'granted') {
                         hasPermission = true;
 
-                        AllMyStatuses.entryPoint();
+                        AllMyStatuses.main();
 
                         return;
                     }
@@ -225,7 +154,7 @@ window.fbAsyncInit = function() {
 
                 if (!hasPermission) {
                     FB.login(function(){
-                        AllMyStatuses.entryPoint();
+                        AllMyStatuses.main();
                     }, {scope: AllMyStatuses.FB.Perms, auth_type: 'rerequest'})
                 }
             });
@@ -325,8 +254,6 @@ $(function() {
 							});
 							
 							$e.removeClass('loading');
-							
-							//AllMyStatuses.FB.sendReuseRequests($('#eltStatus_'+postId).data('friends'));
 						}
 					);
 				}
