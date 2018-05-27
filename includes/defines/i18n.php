@@ -8,9 +8,8 @@
 	
 	define('I18N_TEXT_APPNAME', 0);
 	define('I18N_TEXT_BTN_MORE', 1);
-	define('I18N_TEXT_BTN_REUSE', 2);
+	define('I18N_TEXT_BTN_SHARE', 2);
 	define('I18N_TEXT_BTN_VIEW', 3);
-	define('I18N_TEXT_BTN_SENDTO', 21);
 	define('I18N_TEXT_LOADING', 4);
 	define('I18N_TEXT_NO_MORE', 5);
 	define('I18N_TEXT_STATUSES', 6);
@@ -20,9 +19,6 @@
 	define('I18N_TEXT_DATE_MONTHS', 10);
 	define('I18N_TEXT_DATE_TODAY', 11);
 	define('I18N_TEXT_DATE_YESTERDAY', 12);
-	define('I18N_TEXT_ERROR_TITLE', 13);
-	define('I18N_TEXT_ERROR_DESC', 14);
-	define('I18N_TEXT_ERROR_CLOSE', 15);
 	
 	$i18nLocales = array(
 		'fr_FR' => I18N_LANG_FR,

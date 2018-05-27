@@ -1,4 +1,3 @@
-AllMyStatuses.currentStatus = null;
 AllMyStatuses.limitReached = false;
 //AllMyStatuses.allStatuses = new Array();
 
@@ -10,10 +9,6 @@ AllMyStatuses.main = function() {
 
 AllMyStatuses.getStatusHTML = function(status) {
 	return status.replace(/\n/gi, '<br/>');
-};
-
-AllMyStatuses.getStatusText = function(status) {
-	return status.replace(/<br\/?>/gi, '\n');
 };
 
 AllMyStatuses.FB.getStatuses = function(callback) {
@@ -32,13 +27,9 @@ AllMyStatuses.FB.getStatuses = function(callback) {
 					continue;
 				}
 
-				if(AllMyStatuses.currentStatus == null) {
-					AllMyStatuses.currentStatus = response.data[i].message;
-				}
-
 				fetchedStatuses++;
 
-				$('#listStatuses').append(AllMyStatuses.getStatusElt(response.data[i], response.data[i].message != AllMyStatuses.currentStatus && !AllMyStatuses.limitReached));
+				$('#listStatuses').append(AllMyStatuses.getStatusElt(response.data[i]));
 				//allStatuses.push(response.data[i]);
 			}
 
@@ -50,8 +41,7 @@ AllMyStatuses.FB.getStatuses = function(callback) {
 	);
 };
 
-AllMyStatuses.getStatusElt = function(status, usable) {
-	var hideClass = usable ? '' : ' hide';
+AllMyStatuses.getStatusElt = function(status) {
 	var btnView = I18n.getText(I18n.ids.BTN_VIEW), infosClass = true;
 	if((status.likes && status.likes.data && status.likes.data.length) || (status.comments && status.comments.data && status.comments.data.length)) {
 		btnView = '', infosClass = true;
@@ -70,8 +60,8 @@ AllMyStatuses.getStatusElt = function(status, usable) {
 	return 	$('<li id="eltStatus_'+status.id+'">'+
 				'<div class="status">'+AllMyStatuses.getStatusHTML(status.message)+'</div>'+
 				'<div class="date">'+
-					'<a id="btnReuse_'+status.id+'" class="btn btnReuse'+hideClass+'" href="#">'+
-						'<span>'+I18n.getText(I18n.ids.BTN_REUSE)+'</span>'+
+					'<a id="btnShare_'+status.id+'" class="btn btnShare" href="#">'+
+						'<span>'+I18n.getText(I18n.ids.BTN_SHARE)+'</span>'+
 					'</a>'+
 					'<a id="btnView_'+status.id+'" class="btn btnView'+infosClass+'" target="_blank" href="'+status.permalink_url+'">'+
 						btnView+
@@ -79,15 +69,7 @@ AllMyStatuses.getStatusElt = function(status, usable) {
 					'<span>'+I18n.getDate(date)+'</span>'+
 					//'<span><fb:date t="'+date.getTime()+'" format="monthname_time"></fb:date></span>'+
 				'</div>'+
-			'</li>').data('message', status.message);
-};
-
-AllMyStatuses.updateUseBtn = function($elt) {
-	if($elt.data('message') == AllMyStatuses.currentStatus) {
-		$('div.date .btnReuse', $elt).addClass('hide');
-	} else {
-		$('div.date .btnReuse', $elt).removeClass('hide');
-	}
+			'</li>').data('message', status.message).data('permalink', status.permalink_url);
 };
 
 AllMyStatuses.loadContent = function(first) {
@@ -194,69 +176,19 @@ $(function() {
 		e.preventDefault();
 	});
 	
-	$('#listStatuses').delegate('.btnReuse', 'click', function(e) {
+	$('#listStatuses').delegate('.btnShare', 'click', function(e) {
 		$e = $(e.currentTarget);
-		var postId = $e.attr('id').replace(/^btnReuse_/, '');
-		var postMessage = $('#eltStatus_'+postId).data('message');
+		var postId = $e.attr('id').replace(/^btnShare_/, '');
+		var postLink = $('#eltStatus_'+postId).data('permalink');
 		$e.addClass('loading');
 		
-		FB.api(
-			'/me/feed',
-			'post',
-			{'message': AllMyStatuses.getStatusText(postMessage)},
+		FB.ui(
+			{
+				method: 'share',
+				href: postLink
+			},
 			function(response) {
-				if (!response || response.error) {
-					if(response.error) {
-						switch(response.error.type) {
-						case 'OAuthException':
-							if(response.error.message.search(/^\(#341\)/) != -1) {
-								limitReached = true;
-								
-								$e.parent()
-									.parent()
-										.after('<li class="error"><a href="#" class="closeError">'+I18n.getText(I18n.ids.ERROR_CLOSE)+'</a><span>'+I18n.getText(I18n.ids.ERROR_TITLE)+' :</span> '+I18n.getText(I18n.ids.ERROR_DESC)+'</li>')
-										.next()
-										.hide()
-										.slideDown(500, function() {
-											$e.removeClass('loading');
-										});
-								
-								$('#listStatuses li').each(function() {
-									$('div.date .btnReuse', $(this)).addClass('hide');
-								});
-							} else {
-								console.error(response);
-							}
-							break;
-						default:
-							//
-							break;
-						}
-					} else {
-						console.error('Facebook API Call : No reponse !');
-					}
-				} else {
-					FB.api(
-						'/'+response.id,
-						{fields: 'id,message,type,permalink_url,updated_time,comments.fields(id).limit(500),likes.fields(id).limit(500)'},
-						function(response) {
-                            if (!response || response.error) {
-                                $e.removeClass('loading');
-
-                                return;
-                            }
-
-							AllMyStatuses.currentStatus = response.message;
-							$('#listStatuses').prepend(AllMyStatuses.getStatusElt(response, response.message != AllMyStatuses.currentStatus));
-							
-							$('#listStatuses li').each(function() {
-								AllMyStatuses.updateUseBtn($(this));
-							});
-							
-							$e.removeClass('loading');
-						}
-					);
-				}
+                $e.removeClass('loading');
 			}
 		);
 	});
