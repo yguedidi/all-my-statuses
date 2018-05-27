@@ -185,23 +185,7 @@ AllMyStatuses.entryPoint = function() {
     AllMyStatuses.FB.clearRequests(
         AllMyStatuses.main
     );
-
-    FB.Event.subscribe('edge.create',
-        function(response) {
-            _gaq.push(['_trackSocial', 'Facebook', 'Like', AllMyStatuses.Urls.canvas]);
-        }
-    );
-
-    FB.Event.subscribe('edge.remove',
-        function(response) {
-            _gaq.push(['_trackSocial', 'Facebook', 'Unlike', AllMyStatuses.Urls.canvas]);
-        }
-    );
 };
-
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-36615191-1']);
-_gaq.push(['_trackPageview']);
 
 window.fbAsyncInit = function() {
 	FB.init({
@@ -273,13 +257,6 @@ $(function() {
             fb.src = document.location.protocol + '//connect.facebook.net/'+AllMyStatuses.FB.Locale+'/all.js';
 		}
 		s.parentNode.insertBefore(fb, s);
-		
-		// Google Analytics
-		var ga = document.createElement('script');
-		ga.type = 'text/javascript';
-		ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		s.parentNode.insertBefore(ga, s);
 	})();
 
 	//Adk.ShowAd('adk-1483', { pid: 394340,  appid: 219665, plid: 15965, placement: 1483, adsize: '728x90' });
