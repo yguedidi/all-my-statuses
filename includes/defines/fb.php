@@ -40,7 +40,7 @@
 	 * @var string
 	 * @example publish_stream,read_stream
 	 */
-	define('FB_PERMS', 'user_posts');
+	define('FB_PERMS', ['user_posts']);
 
 	/**
 	 * Mon ID Facebook

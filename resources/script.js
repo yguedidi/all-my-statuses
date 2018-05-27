@@ -107,12 +107,11 @@ AllMyStatuses.loadContent = function(first) {
 window.fbAsyncInit = function() {
 	FB.init({
 		appId: AllMyStatuses.FB.AppID,
+        autoLogAppEvents: true,
 		status: true,
 		cookie: true,
 		xfbml: true,
-		oauth: true,
-        version: 'v3.0',
-		channelUrl: AllMyStatuses.Urls.channel});
+        version: 'v3.0'});
 	
 	//FB.Canvas.EarlyFlush.addResource(AllMyStatuses.Urls.home+'style.css');
 	//FB.Canvas.EarlyFlush.addResource(AllMyStatuses.Urls.home+'script.js');

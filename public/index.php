@@ -1,5 +1,7 @@
 <?php
-	use Symfony\Component\Dotenv\Dotenv;
+    use Facebook\Exceptions\FacebookResponseException;
+    use Facebook\Exceptions\FacebookSDKException;
+    use Symfony\Component\Dotenv\Dotenv;
 
 	require __DIR__ . '/../vendor/autoload.php';
 
@@ -18,7 +20,6 @@
 	require_once '../includes/i18n.php';
 
 	define('USE_CACHE', CACHE_WHEN);
-	define('ONLY_CANVAS',true);
 
 	define('NB_STATUSES_BY_PAGE', 25);
 
@@ -39,12 +40,6 @@
 				$mime = 'text/javascript';
 				$maxage = SCRIPT_CACHE;
 				$filename = 'script.'.$_GET['type'];
-				break;
-			case 'html':
-				$mime = 'text/html';
-				$utf8 = true;
-				$maxage = 31557600;
-				$filename = 'channel.'.$_GET['type'];
 				break;
 			case 'gif':
 				$mime = 'image/gif';
@@ -94,7 +89,6 @@
 							'AllMyStatuses.FB.Locale = "en_US";'.
 							'AllMyStatuses.Urls.home = "'.APP_URL.'";'.PHP_EOL.
 							'AllMyStatuses.Urls.canvas = "'.FB_CANVAS.'";'.PHP_EOL.
-							'AllMyStatuses.Urls.channel = "'.APP_URL.'channel.html";'.PHP_EOL.
 							'AllMyStatuses.FB.AppID = "'.FB_ID.'";'.PHP_EOL.
 							'AllMyStatuses.FB.CanvasURL = "'.FB_CANVAS.'";'.PHP_EOL.
 							'AllMyStatuses.FB.Perms = "'.FB_PERMS.'";'.PHP_EOL.
@@ -126,11 +120,6 @@
 							$content;
 				$content = getJS($content);
 				break;
-			case 'html':
-				$gzip = true;
-				$l = $Fb->getUserLocale();
-				$content = str_replace('en_US', $l, $content);
-				break;
 			default:
 
 		}
@@ -148,18 +137,31 @@
 		header('Content-Length: '.ob_get_length());
 		ob_end_flush();
 	} else {
-		if(ONLY_CANVAS && !isCanvas()) {
-			//echo '<script type="text/javascript">window.location.href = "'.FB_CANVAS.'";</script>';
-			//exit();
-		}
-		$FbUserID = $Fb->getUser();
-		setI18nLocale($Fb->getUserLocale());
+        try {
+            $accessToken = $canvasHelper->getAccessToken();
+
+            if (!$accessToken) {
+                echo '<script type="text/javascript">window.location.href = "'.$loginUrl.'";</script>';
+                exit();
+            }
+        } catch(FacebookResponseException $e) {
+            echo '<script type="text/javascript">window.location.href = "'.$loginUrl.'";</script>';
+            exit();
+        } catch(FacebookSDKException $e) {
+            echo '<script type="text/javascript">window.location.href = "'.$loginUrl.'";</script>';
+            exit();
+        }
+
+        $userLocale = $canvasHelper->getSignedRequest()->get('user')['locale'];
+        $userId = $canvasHelper->getSignedRequest()->get('user_id');
+
+        setI18nLocale($userLocale);
 
 		// Date de dernière modification :
 		if(USE_CACHE) {
 			// Du script
 			$last_timestamp = filemtime($_SERVER['SCRIPT_FILENAME']);
-			$last_etag = md5($_SERVER['SCRIPT_FILENAME'].'|'.$FbUserID.'|'.$Fb->getUserLocale().'|'.$last_timestamp);
+			$last_etag = md5($_SERVER['SCRIPT_FILENAME'].'|'.$userId.'|'.$userLocale.'|'.$last_timestamp);
 
 			// Gère le cache
 			setCacheHeaders($last_timestamp, $last_etag, PAGE_CACHE);
@@ -208,11 +210,11 @@
 						'<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui'.$min.'.js"></script>'.
 						'<script type="text/javascript" src="'.APP_URL.'20180527182626.js"></script>'.
 						'<script type="text/javascript">'.
-							getJS(	'AllMyStatuses.FB.UserID = "'.$FbUserID.'";'.
-									'AllMyStatuses.FB.Locale = "'.$Fb->getUserLocale().'";'.
+							getJS(	'AllMyStatuses.FB.UserID = "'.$userId.'";'.
+									'AllMyStatuses.FB.Locale = "'.$userLocale.'";'.
 									'AllMyStatuses.FB.Params.limit = '.NB_STATUSES_BY_PAGE.';'.
 									'AllMyStatuses.FB.Debug = '.(!isProd() ? 'true' : 'false').';'.
-									'I18n.currentLocale = "'.$Fb->getUserLocale().'";'.
+									'I18n.currentLocale = "'.$userLocale.'";'.
 									'I18n.currentLanguage = '.getI18nLanguage().';').
 						'</script>'.
 					'</body>'.

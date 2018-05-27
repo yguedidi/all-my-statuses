@@ -1,5 +1,6 @@
 <?php
 	require_once 'defines/fb.php';
 	require_once 'functions/fb.php';
-	
-	$Fb = new CFacebook();
+
+    $canvasHelper = $fb->getCanvasHelper();
+    $loginUrl = $fb->getRedirectLoginHelper()->getLoginUrl(FB_CANVAS, FB_PERMS);
