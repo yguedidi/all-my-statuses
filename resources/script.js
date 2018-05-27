@@ -111,7 +111,7 @@ window.fbAsyncInit = function() {
 		cookie: true,
 		xfbml: true,
 		oauth: true,
-        version: 'v2.10',
+        version: 'v3.0',
 		channelUrl: AllMyStatuses.Urls.channel});
 	
 	//FB.Canvas.EarlyFlush.addResource(AllMyStatuses.Urls.home+'style.css');
