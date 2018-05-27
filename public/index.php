@@ -178,7 +178,7 @@
 				'<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xml:lang="fr">'.
 					'<head>'.
 						'<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />'.
-				 		'<link rel="stylesheet" type="text/css" href="'.APP_URL.'20170813230325.css" />'.
+				 		'<link rel="stylesheet" type="text/css" href="'.APP_URL.'20180527182626.css" />'.
 						'<title>'.APP_NAME.'</title>'.
 					'</head>'.
 					'<body>'.
@@ -201,7 +201,7 @@
 						'<div id="fb-root"></div>'.
 						'<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery'.$min.'.js"></script>'.
 						'<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui'.$min.'.js"></script>'.
-						'<script type="text/javascript" src="'.APP_URL.'20170912233901.js"></script>'.
+						'<script type="text/javascript" src="'.APP_URL.'20180527182626.js"></script>'.
 						'<script type="text/javascript">'.
 							getJS(	'AllMyStatuses.FB.UserID = "'.$FbUserID.'";'.
 									'AllMyStatuses.FB.Locale = "'.$Fb->getUserLocale().'";'.
