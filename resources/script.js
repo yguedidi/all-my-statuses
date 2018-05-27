@@ -259,9 +259,6 @@ $(function() {
 		s.parentNode.insertBefore(fb, s);
 	})();
 
-	//Adk.ShowAd('adk-1483', { pid: 394340,  appid: 219665, plid: 15965, placement: 1483, adsize: '728x90' });
-	//Adk.ShowAd('adk-1484', { pid: 394340,  appid: 219665, plid: 15965, placement: 1484, adsize: '728x90' });
-
 	$('#btnMore').click(function(e) {
 		AllMyStatuses.loadContent();
 		

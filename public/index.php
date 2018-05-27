@@ -18,7 +18,6 @@
 	require_once '../includes/i18n.php';
 
 	define('USE_CACHE', CACHE_WHEN);
-	define('SHOW_ADS', !isLocal());
 	define('ONLY_CANVAS',true);
 
 	define('NB_STATUSES_BY_PAGE', 25);
