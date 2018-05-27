@@ -13,5 +13,8 @@
         "natxet/CssMin": "^3.0",
         "linkorb/jsmin-php": "^1.0",
         "facebook/php-sdk": "^3.2"
+    },
+    "require-dev": {
+        "deployer/deployer": "^6.2"
     }
 }
