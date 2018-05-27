@@ -16,6 +16,12 @@ AllMyStatuses.FB.getStatuses = function(callback) {
 		'/me/feed',
 		{fields: 'id,message,type,permalink_url,updated_time,comments.fields(id).limit(500),likes.fields(id).limit(500)', limit:AllMyStatuses.FB.Params.limit+1, offset:AllMyStatuses.FB.Params.offset},
 		function(response) {
+			if (typeof response.data == "undefined") {
+                callback(false);
+
+                return;
+			}
+
 			var fetchedStatuses = 0;
 			var fetchedFeedItems = (response.data.length > AllMyStatuses.FB.Params.limit ? AllMyStatuses.FB.Params.limit : response.data.length);
 			for(var i = 0; i < fetchedFeedItems; i++) {
