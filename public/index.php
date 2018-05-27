@@ -17,8 +17,8 @@
 	require_once '../includes/cache.php';
 	require_once '../includes/i18n.php';
 
-	define('USE_CACHE', CACHE_WHEN || true);
-	define('SHOW_ADS', !isLocal() || true);
+	define('USE_CACHE', CACHE_WHEN);
+	define('SHOW_ADS', !isLocal());
 	define('ONLY_CANVAS',true);
 
 	define('NB_STATUSES_BY_PAGE', 25);
@@ -90,7 +90,6 @@
 							'AllMyStatuses.FB.Locale = "en_US";'.
 							'AllMyStatuses.Urls.home = "'.APP_URL.'";'.PHP_EOL.
 							'AllMyStatuses.Urls.canvas = "'.FB_CANVAS.'";'.PHP_EOL.
-							'AllMyStatuses.Urls.ajax = "'.APP_URL.'ajax";'.PHP_EOL.
 							'AllMyStatuses.Urls.channel = "'.APP_URL.'channel.html";'.PHP_EOL.
 							'AllMyStatuses.FB.AppID = "'.FB_ID.'";'.PHP_EOL.
 							'AllMyStatuses.FB.CanvasURL = "'.FB_CANVAS.'";'.PHP_EOL.
@@ -153,26 +152,6 @@
 		}
 		header('Content-Length: '.ob_get_length());
 		ob_end_flush();
-	} elseif(isset($_GET['ajax'])) {
-		setNoCacheHeaders();
-		if(isset($_POST['p']) && isset($_POST['uid'])) {
-			require_once '../includes/sgbd.php';
-			require_once '../models/users.php';
-
-			// Gestion de l'Unicode
-			header('Content-Type: text/plain; charset=utf-8');
-
-			switch($_POST['p']) {
-			case 0:
-				$res = setUserLike($_POST['uid']);
-				break;
-			case 1:
-				$res = setUserUnlike($_POST['uid']);
-				break;
-			default:
-				//
-			}
-		}
 	} else {
 		if(ONLY_CANVAS && !isCanvas()) {
 			//echo '<script type="text/javascript">window.location.href = "'.FB_CANVAS.'";</script>';
@@ -180,41 +159,6 @@
 		}
 		$FbUserID = $Fb->getUser();
 		setI18nLocale($Fb->getUserLocale());
-
-
-		//if(isset($_GET['uninstall']) || isset($_GET['code'])) {
-		//if(isset($_GET['uninstall'])) {
-			require_once '../includes/sgbd.php';
-			require_once '../models/users.php';
-
-			// Désinstallation de l'application
-			if(isset($_GET['uninstall'])) {
-				deleteUser($FbUserID);
-				exit();
-			// Installation de l'application
-			} else {
-                if(!getUser($FbUserID)) {
-                    if(isset($_GET['request_ids'])) {
-                        $reqs = explode(',', $_GET['request_ids']);
-                        if(count($reqs) == 1 && !(isset($_GET['ref']) && $_GET['ref'] == 'notif')) {
-                            $res = $Fb->api('/'.$reqs[0]);
-                            $data = json_decode($res['data']);
-                            $req_type = $data->type;
-                        } else {
-                            $req_type = 'req_notif';
-                        }
-                        addUser($FbUserID, $Fb->getUserLocale(), $req_type);
-                    } else {
-                        addUser($FbUserID, $Fb->getUserLocale());
-                    }
-
-                    echo '<script type="text/javascript">top.location.href = "'.FB_CANVAS.'";</script>';
-                    exit();
-                } else {
-                    undeleteUser($FbUserID);
-                }
-            }
-		//}
 
 		// Date de dernière modification :
 		if(USE_CACHE) {

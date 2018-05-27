@@ -189,22 +189,12 @@ AllMyStatuses.entryPoint = function() {
     FB.Event.subscribe('edge.create',
         function(response) {
             _gaq.push(['_trackSocial', 'Facebook', 'Like', AllMyStatuses.Urls.canvas]);
-            $.ajax({
-                type: 'POST',
-                url: AllMyStatuses.Urls.ajax,
-                data: {p: 0, uid: AllMyStatuses.FB.UserID}
-            });
         }
     );
 
     FB.Event.subscribe('edge.remove',
         function(response) {
             _gaq.push(['_trackSocial', 'Facebook', 'Unlike', AllMyStatuses.Urls.canvas]);
-            $.ajax({
-                type: 'POST',
-                url: AllMyStatuses.Urls.ajax,
-                data: {p: 1, uid: AllMyStatuses.FB.UserID}
-            });
         }
     );
 };

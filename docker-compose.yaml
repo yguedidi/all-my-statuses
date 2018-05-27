@@ -10,19 +10,6 @@ services:
         restart: always
         ports:
             - 443:443
-        links:
-            - db:db
         volumes:
             - .:/home/all-my-statuses:rw
         working_dir: /home/all-my-statuses
-
-    db:
-        image: mariadb:10.1.23
-        restart: always
-        environment:
-            - MYSQL_ROOT_PASSWORD=toor
-            - MYSQL_DATABASE=all_my_statuses
-            - MYSQL_USER=root
-            - MYSQL_PASSWORD=toor
-        ports:
-            - 3306:3306

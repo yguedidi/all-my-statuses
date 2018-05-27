@@ -20,15 +20,5 @@ RewriteBase /all-my-statuses
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)\.(css|js|gif|html)$ index.php?resource=$1&type=$2 [L]
 
-#
-# Requête AJAX
-#
-RewriteRule ^ajax$ index.php?ajax=1 [L]
-
-#
-# Désinstallation de l'application
-#
-RewriteRule ^uninstall$ index.php?uninstall=1 [L]
-
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ index.php [QSA,L] [L]
