@@ -62,10 +62,15 @@
 		header('Content-Type: '.$mime.($utf8 ? '; charset=utf-8' : ''));
 
 		if(USE_CACHE) {
-			$last_timestamp = filemtime($dir.$filename);
-			$last_etag = md5($filename.'.|'.$last_timestamp);
+			$last_timestamp = @filemtime($dir.$filename);
 
-			setCacheHeaders($last_timestamp, $last_etag, $maxage);
+			if ($last_timestamp !== false) {
+                $last_etag = md5($filename.'.|'.$last_timestamp);
+
+                setCacheHeaders($last_timestamp, $last_etag, $maxage);
+            } else {
+                setNoCacheHeaders();
+            }
 		} else {
 			setNoCacheHeaders();
 		}
