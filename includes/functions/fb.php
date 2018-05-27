@@ -1,10 +1,8 @@
 <?php
 	class CFacebook extends Facebook {
-		private $FirePHP, $_restCalls, $_graphCalls, $useSession;
+		private $_restCalls, $_graphCalls, $useSession;
 		
 		public function CFacebook() {
-			$this->FirePHP = FirePHP::getInstance(true);
-			
 			if(isLocal()) {
 				parent::$CURL_OPTS[CURLOPT_SSL_VERIFYPEER] = false;
 				parent::$CURL_OPTS[CURLOPT_SSL_VERIFYHOST] = 2;
@@ -59,13 +57,11 @@
 			if($this->useSession) {
 				$call = md5(http_build_query($params));
 				if(!isset($this->_restCalls[$call])) {
-					$this->FirePHP->log($params, 'Appel au REST API');
 					$this->_restCalls[$call] = parent::_restserver($params);
 				}
 				return $this->_restCalls[$call];
 			} else {
 				$this->useSession = true;
-				$this->FirePHP->log($params, 'Appel sans session au REST API');
 				return parent::_restserver($params);
 			}
 		}
@@ -74,13 +70,11 @@
 			if($this->useSession) {
 				$call = md5($method.'|'.$path.'|'.http_build_query($params));
 				if(!isset($this->_graphCalls[$call])) {
-					$this->FirePHP->log(array('Path' => $path, 'Params' => $params), 'Appel au Graph API');
 					$this->_graphCalls[$call] = parent::_graph($path, $method, $params);
 				}
 				return $this->_graphCalls[$call];
 			} else {
 				$this->useSession = true;
-				$this->FirePHP->log(array('Path' => $path, 'Params' => $params), 'Appel sans session au Graph API');
 				return parent::_graph($path, $method, $params);
 			}
 		}

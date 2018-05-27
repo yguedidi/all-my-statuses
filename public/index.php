@@ -13,7 +13,6 @@
 	// Requis généraux
 	require_once '../includes/app.php';
 	require_once '../includes/server.php';
-	require_once '../includes/firephp.php';
 	require_once '../includes/fb.php';
 	require_once '../includes/cache.php';
 	require_once '../includes/i18n.php';
@@ -216,18 +215,6 @@
                 }
             }
 		//}
-
-		$FirePHP->log($Fb->getUserLocale(), 'Current locale');
-
-		$FirePHP->group('Variables globales - début');
-		$FirePHP->log($_POST, '$_POST');
-		$FirePHP->log($_GET, '$_GET');
-		if(isset($_SESSION)) {
-			$FirePHP->log($_SESSION, '$_SESSION');
-		}
-		$FirePHP->log($_COOKIE, '$_COOKIE');
-		$FirePHP->log($_SERVER, '$_SERVER');
-		$FirePHP->groupEnd();
 
 		// Date de dernière modification :
 		if(USE_CACHE) {
