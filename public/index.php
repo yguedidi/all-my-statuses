@@ -91,7 +91,7 @@
 							'AllMyStatuses.Urls.canvas = "'.FB_CANVAS.'";'.PHP_EOL.
 							'AllMyStatuses.FB.AppID = "'.FB_ID.'";'.PHP_EOL.
 							'AllMyStatuses.FB.CanvasURL = "'.FB_CANVAS.'";'.PHP_EOL.
-							'AllMyStatuses.FB.Perms = "'.FB_PERMS.'";'.PHP_EOL.
+							'AllMyStatuses.FB.Perms = "'.implode(',', FB_PERMS).'";'.PHP_EOL.
 							'AllMyStatuses.FB.Params = {"limit": 5, "offset": 0};'.PHP_EOL.
 							'I18n.currentLocale = "en_US";'.PHP_EOL.
 							'I18n.currentLanguage = '.I18N_LANG_EN.';'.PHP_EOL.
